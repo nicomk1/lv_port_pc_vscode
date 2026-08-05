@@ -127,7 +127,7 @@
  *============================================================================*/
 
 /** Color depth: 1 (I1), 8 (L8), 16 (RGB565), 24 (RGB888), 32 (XRGB8888) */
-#define LV_COLOR_DEPTH 32
+#define LV_COLOR_DEPTH 16
 
 /** 0: no adjustment, get the integer part of the result (round down)
  *  64: round up from x.75
@@ -199,7 +199,7 @@
  *
  *  Enable: LV_USE_MATRIX
  */
-#define LV_USE_VECTOR_GRAPHIC 1
+#define LV_USE_VECTOR_GRAPHIC 0
 
 /** Enable API to take snapshot for object */
 #define LV_USE_SNAPSHOT 0
@@ -2487,5 +2487,29 @@
 /*--END OF LV_CONF_H--*/
 
 #endif /*LV_CONF_H*/
+
+#define LV_FONT_DEFAULT_MONTSERRAT_14 1
+
+/* =========================================================================
+   COMPATIBILITÉ FORCEE POUR LES IMAGES SQUARELINE (EXPORT V8 VERS MOTEUR V9)
+   ========================================================================= */
+#define LV_IMG_CF_TRUE_COLOR_ALPHA   LV_COLOR_FORMAT_ARGB8888
+
+/* =========================================================================
+   CORRECTION FORCEE DES FONCTIONS DE COMPATIBILITE V8 VERS LVGL V9.5.0
+   ========================================================================= */
+#define LV_IMG_CF_TRUE_COLOR_ALPHA     LV_COLOR_FORMAT_ARGB8888
+#define always_zero                    magic
+
+// Gestion de la mémoire de la v8 convertie en v9
+#define lv_mem_alloc(size)             lv_malloc(size)
+#define lv_mem_free(ptr)               lv_free(ptr)
+
+// Macro de traduction de texte vide pour éviter les erreurs de lien
+#define _(text)                        text
+
+// Remplacement du style de fond d'image déprécié
+#define lv_obj_set_style_bg_img_opa    lv_obj_set_style_bg_image_opa
+
 
 #endif /*End of "Content enable"*/
